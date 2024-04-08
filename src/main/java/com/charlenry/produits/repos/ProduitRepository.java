@@ -7,13 +7,20 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.charlenry.produits.entities.Categorie;
 import com.charlenry.produits.entities.Produit;
 
-// fournit toutes les API standard pour l'entité Produit dont l'endpoint fini par /rest
-// http://localhost:8080/produits/rest
+// API Spring DATA REST via JpaRepository
+
+// Fournit toutes les API standard pour l'entité Produit dont l'endpoint finit par /rest
+// Adresse : http://localhost:8080/produits/rest
 @RepositoryRestResource(path = "rest")
+
+// Pour autoriser n'importe quel serveur client ; en l'absence de cette annotation, on obtient une erreur CORS
+@CrossOrigin("*")
+
 public interface ProduitRepository extends JpaRepository<Produit, Long> {
 	List<Produit> findByNomProduit(String nom);
 	List<Produit> findByNomProduitContains(String nom);

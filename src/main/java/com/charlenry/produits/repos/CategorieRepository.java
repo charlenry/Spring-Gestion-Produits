@@ -6,11 +6,15 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 import com.charlenry.produits.entities.Categorie;
 
-// fournit toutes les API standard pour l'entité Catégorie dont l'endpoint fini par /cat
-// http://localhost:8080/produits/cat
-@RepositoryRestResource(path = "cat")  
-//pour autoriser angular ; en l'absence de cette annotation, on obtient une erreur cors
-@CrossOrigin("http://localhost:4200") 
+// API Spring DATA REST via JpaRepository
+
+// Fournit toutes les API standard pour l'entité Catégorie dont l'endpoint finit par /cat
+// Adresse : http://localhost:8080/produits/cat
+@RepositoryRestResource(path = "cat") 
+
+//Pour autoriser uniquement Angular et React ; en l'absence de cette annotation, on obtient une erreur CORS
+@CrossOrigin("http://localhost:4200, http://localhost:3000")
+
 public interface CategorieRepository extends JpaRepository<Categorie, Long> {
 	
 }
