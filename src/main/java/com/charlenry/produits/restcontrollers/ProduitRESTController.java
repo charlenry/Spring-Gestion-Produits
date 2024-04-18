@@ -20,22 +20,22 @@ public class ProduitRESTController {
 	ProduitService produitService;
 
 	// Get all products
-	// Adresse : http://localhost:8080/produits/api
-	@GetMapping("/api")
+	// Adresse : http://localhost:8080/produits/api/all
+	@GetMapping("/api/all")
 	public List<ProduitDTO> getAllProduits() {
 		return produitService.getAllProduits();
 	}
 	
 	// Get a product by ID
-	// Adresse : http://localhost:8080/produits/api/{idProd}
-	@GetMapping("/api/{idProd}")
+	// Adresse : http://localhost:8080/produits/api/getProdById/{idProd}
+	@GetMapping("/api/getProdById/{idProd}")
 	public ProduitDTO getProduitById(@PathVariable("idProd") Long id) {
 		return produitService.getProduit(id);
 	}
 	
 	// Add a product
-	// Adresse : http://localhost:8080/produits/api
-	@PostMapping(path = "/api", 
+	// Adresse : http://localhost:8080/produits/api/addProd
+	@PostMapping(path = "/api/addProd", 
 	        consumes = MediaType.APPLICATION_JSON_VALUE, 
 	        produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProduitDTO createProduit(@RequestBody ProduitDTO produitDTO) {
@@ -43,8 +43,8 @@ public class ProduitRESTController {
 	}
 	
 	// Update all fields in a product
-	// Adresse : http://localhost:8080/produits/api
-	@PutMapping(path = "/api", 
+	// Adresse : http://localhost:8080/produits/api/updateProd
+	@PutMapping(path = "/api/updateProd", 
 	        consumes = MediaType.APPLICATION_JSON_VALUE, 
 	        produces = MediaType.APPLICATION_JSON_VALUE)
 	public ProduitDTO updateProduit(@RequestBody ProduitDTO produitDTO) {
@@ -52,22 +52,22 @@ public class ProduitRESTController {
 	}
 	
 	// Delete a product by ID
-	// Adresse : http://localhost:8080/produits/api/{idProd}
-	@DeleteMapping("/api/{idProd}")
+	// Adresse : http://localhost:8080/produits/api/delProdById/{idProd}
+	@DeleteMapping("/api/delProdById/{idProd}")
 	public void deleteProduit(@PathVariable("idProd") Long id) {
 		produitService.deleteProduitById(id);
 	}
 	
 	// Get products by Category
-	// Adresse : http://localhost:8080/produits/api/prodscat/{idCat}
-	@GetMapping("/api/prodscat/{idCat}")
+	// Adresse : http://localhost:8080/produits/api/prodsByCat/{idCat}
+	@GetMapping("/api/prodsByCat/{idCat}")
 	public List<ProduitDTO> getProduitsByCatId(@PathVariable("idCat") Long idCat) {
 		return produitService.findByCategorieIdCat(idCat);
 	}	
 	
 	// Get products by Name
 	// Adresse : http://localhost:8080/produits/api/prodsByName/{nom}
-	@GetMapping("api/prodsByName/{nom}")
+	@GetMapping("/api/prodsByName/{nom}")
 	public List<ProduitDTO> findByNomProduitContains(@PathVariable("nom") String nom) {
 		return produitService.findByNomProduitContains(nom);
 	}
