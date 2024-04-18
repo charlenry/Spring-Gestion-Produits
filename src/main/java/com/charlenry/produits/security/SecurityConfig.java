@@ -5,6 +5,7 @@ import java.util.Collections;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -17,6 +18,7 @@ import jakarta.servlet.http.HttpServletRequest;
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
 
   @Bean
@@ -39,7 +41,7 @@ public class SecurityConfig {
         .authorizeHttpRequests(requests -> requests
             .requestMatchers("/api/all").hasAnyAuthority("ADMIN", "USER")
             .requestMatchers(HttpMethod.GET, "/api/getProdById/**").hasAnyAuthority("ADMIN", "USER")
-            .requestMatchers(HttpMethod.POST, "/api/addProd").hasAuthority("ADMIN")
+           // .requestMatchers(HttpMethod.POST, "/api/addProd").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/updateProd").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/delProdById/**").hasAuthority("ADMIN")
             .requestMatchers("/api/prodsByCat/**").hasAnyAuthority("ADMIN", "USER")
@@ -47,7 +49,7 @@ public class SecurityConfig {
             .anyRequest().authenticated())
         .addFilterBefore(new JWTAuthorizationFilter(),
             UsernamePasswordAuthenticationFilter.class);
-            
+
     return http.build();
   }
 
