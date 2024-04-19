@@ -52,16 +52,15 @@ public class SecurityConfig {
         }))
 
         .authorizeHttpRequests(requests -> requests
-            .requestMatchers("/api/all").hasAnyAuthority("ADMIN", "USER")
+            .requestMatchers(HttpMethod.GET, "/api/all").hasAnyAuthority("ADMIN", "USER")
             .requestMatchers(HttpMethod.GET, "/api/getProdById/**").hasAnyAuthority("ADMIN", "USER")
            // .requestMatchers(HttpMethod.POST, "/api/addProd").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/updateProd").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/delProdById/**").hasAuthority("ADMIN")
-            .requestMatchers("/api/prodsByCat/**").hasAnyAuthority("ADMIN", "USER")
-            .requestMatchers("/api/prodsByName/**").hasAnyAuthority("ADMIN", "USER")
+            .requestMatchers(HttpMethod.GET, "/api/prodsByCat/**").hasAnyAuthority("ADMIN", "USER")
+            .requestMatchers(HttpMethod.GET, "/api/prodsByName/**").hasAnyAuthority("ADMIN", "USER")
             .anyRequest().authenticated())
-        .addFilterBefore(new JWTAuthorizationFilter(),
-            UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }
