@@ -50,7 +50,6 @@ public class SecurityConfig {
             return cors;
           }
         }))
-
         .authorizeHttpRequests(requests -> requests
             .requestMatchers(HttpMethod.GET, "/api/all").hasAnyAuthority("ADMIN", "USER")
             .requestMatchers(HttpMethod.GET, "/api/getProdById/**").hasAnyAuthority("ADMIN", "USER")
@@ -59,6 +58,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.DELETE, "/api/delProdById/**").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/prodsByCat/**").hasAnyAuthority("ADMIN", "USER")
             .requestMatchers(HttpMethod.GET, "/api/prodsByName/**").hasAnyAuthority("ADMIN", "USER")
+            //.requestMatchers(HttpMethod.DELETE, "/api/cat/delCatById/**").hasAuthority("ADMIN")
             .anyRequest().authenticated())
         .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
