@@ -24,7 +24,7 @@ public class Categorie {
 	private String descriptionCat;
 
 	@JsonIgnore
-	@OneToMany(mappedBy = "categorie")
+	@OneToMany(mappedBy = "categorie")  // une catégorie peut avoir plusieurs produits
 	private List<Produit> produits;
 
 }

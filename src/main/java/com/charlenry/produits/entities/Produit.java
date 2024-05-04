@@ -1,29 +1,32 @@
 package com.charlenry.produits.entities;
 
 import java.util.Date;
+
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Produit {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id_produit")
 	private Long idProduit;
 	private String nomProduit;
 	private Double prixProduit;
 	private Date dateCreation;
 	
-	@ManyToOne
+	@ManyToOne // plusieurs produits peuvent appartenir à une seule catégorie
 	private Categorie categorie;
 	
+	@OneToOne
+	private Image image;
 	
-	public Produit() {
-		super();
-	}
-	
+
 	
 	public Produit(String nomProduit, Double prixProduit, Date dateCreation) {
 		super();
@@ -32,9 +35,7 @@ public class Produit {
 		this.dateCreation = dateCreation;
 	}
 
-
-
-
+	
 	public Long getIdProduit() {
 		return idProduit;
 	}
@@ -58,6 +59,18 @@ public class Produit {
 	}
 	public void setDateCreation(Date dateCreation) {
 		this.dateCreation = dateCreation;
+	}
+	
+	public Image getImage() {
+		return image;
+	}
+
+	public void setImage(Image image) {
+		this.image = image;
+	}
+
+	public Produit() {
+		super();
 	}
 
 

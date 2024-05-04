@@ -6,6 +6,7 @@ import com.charlenry.produits.dto.ProduitDTO;
 import com.charlenry.produits.entities.Categorie;
 import com.charlenry.produits.entities.Produit;
 
+
 public interface ProduitService {
 	ProduitDTO saveProduit(ProduitDTO p);
 	ProduitDTO updateProduit(ProduitDTO p);

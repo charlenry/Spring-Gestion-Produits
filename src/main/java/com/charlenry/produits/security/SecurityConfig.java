@@ -51,7 +51,8 @@ public class SecurityConfig {
           }
         }))
         .authorizeHttpRequests(requests -> requests
-            .requestMatchers(HttpMethod.GET, "/api/all").hasAnyAuthority("ADMIN", "USER")
+        	.anyRequest().permitAll());
+            /*.requestMatchers(HttpMethod.GET, "/api/all").hasAnyAuthority("ADMIN", "USER")
             .requestMatchers(HttpMethod.GET, "/api/getProdById/**").hasAnyAuthority("ADMIN", "USER")
            // .requestMatchers(HttpMethod.POST, "/api/addProd").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/updateProd").hasAuthority("ADMIN")
@@ -60,7 +61,7 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.GET, "/api/prodsByName/**").hasAnyAuthority("ADMIN", "USER")
             //.requestMatchers(HttpMethod.DELETE, "/api/cat/delCatById/**").hasAuthority("ADMIN")
             .anyRequest().authenticated())
-        .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+        .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class); */
 
     return http.build();
   }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.charlenry.produits.dto.ProduitDTO;
 import com.charlenry.produits.entities.Categorie;
 import com.charlenry.produits.entities.Produit;
+import com.charlenry.produits.repos.ImageRepository;
 import com.charlenry.produits.repos.ProduitRepository;
 
 @Service
@@ -20,6 +21,9 @@ public class ProduitServiceImpl implements ProduitService {
 	ProduitRepository produitRepository;
 	
 	@Autowired
+	ImageRepository imageRepository;
+	
+	@Autowired
 	ModelMapper modelMapper;
 
 	@Override
@@ -27,21 +31,32 @@ public class ProduitServiceImpl implements ProduitService {
 		return convertEntityToDto(produitRepository.save(convertDtoToEntity(p)));
 	}
 
-	@Override
+	/* @Override
 	public ProduitDTO updateProduit(ProduitDTO p) {
 		return convertEntityToDto(produitRepository.save(convertDtoToEntity(p)));
+	} */
+	
+	@Override
+	public ProduitDTO updateProduit(ProduitDTO p) {
+		//on récupère l'ID de l'image du produit dans la base de données
+		Long oldProdImageId = this.getProduit(p.getIdProduit()).getImage().getIdImage();
+		// on récupère l'ID de l'image du produit dans l'objet DTO envoyé par le frontend
+		Long newProdImageId = p.getImage().getIdImage();
+		// on met à jour le produit dans la base de données
+		ProduitDTO prodUpdated = convertEntityToDto(produitRepository.save(convertDtoToEntity(p)));
+		// si l'image a été modifiée alors supprimer l'ancienne image de la BDD
+		if (oldProdImageId != newProdImageId) imageRepository.deleteById(oldProdImageId);
+		return prodUpdated;
 	}
 
 	@Override
 	public void deleteProduit(Produit p) {
-		produitRepository.delete(p);
-		
+		produitRepository.delete(p);		
 	}
 
 	@Override
 	public void deleteProduitById(Long id) {
-		produitRepository.deleteById(id);
-		
+		produitRepository.deleteById(id);		
 	}
 
 	@Override

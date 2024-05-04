@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.data.rest.core.config.RepositoryRestConfiguration;
 
 import com.charlenry.produits.entities.Categorie;
+import com.charlenry.produits.entities.Image;
 import com.charlenry.produits.entities.Produit;
 
 @SpringBootApplication
@@ -25,7 +26,7 @@ public class ProduitsApplication implements CommandLineRunner {
 	public void run(String... args) throws Exception {
 		// Expose les id des classes passées en paramètres dans les API Spring DATA REST,
 		// c'est-à-dire les API créés de façon standard.
-		repositoryRestConfiguration.exposeIdsFor(Produit.class, Categorie.class);	
+		repositoryRestConfiguration.exposeIdsFor(Produit.class, Categorie.class, Image.class);	
 	}
 
     @Bean

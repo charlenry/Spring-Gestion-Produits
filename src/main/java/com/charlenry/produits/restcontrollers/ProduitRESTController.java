@@ -3,7 +3,7 @@ package com.charlenry.produits.restcontrollers;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
-import org.springframework.security.access.prepost.PreAuthorize;
+//import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.charlenry.produits.dto.ProduitDTO;
@@ -39,7 +39,7 @@ public class ProduitRESTController {
 	@PostMapping(path = "/api/addProd", 
 	        consumes = MediaType.APPLICATION_JSON_VALUE, 
 	        produces = MediaType.APPLICATION_JSON_VALUE)
-	@PreAuthorize("hasAuthority('ADMIN')")
+	//@PreAuthorize("hasAuthority('ADMIN')")
 	public ProduitDTO createProduit(@RequestBody ProduitDTO produitDTO) {
 		return produitService.saveProduit(produitDTO);
 	}
