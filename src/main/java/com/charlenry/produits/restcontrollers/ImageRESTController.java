@@ -1,6 +1,7 @@
 package com.charlenry.produits.restcontrollers;
 
 import java.io.IOException;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,9 +30,23 @@ public class ImageRESTController {
     return imageService.getImage(id);
   }
   
+  @GetMapping("/getImagesProd/{idProd}")
+  public List<Image> getImagesProd(@PathVariable("idProd") Long idProd)
+      throws IOException {
+    return imageService.getImagesParProd(idProd);
+  }
+  
   @PostMapping("/upload")
   public Image uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
     return imageService.uploadImage(file);
+  }
+
+  
+  @PostMapping("/uploadImageProd/{idProd}")
+  public Image uploadMultiImages(@RequestParam("image") MultipartFile file,
+      @PathVariable("idProd") Long idProd)
+      throws IOException {
+    return imageService.uploadImageProd(file, idProd);
   }
   
   @PutMapping("/update")

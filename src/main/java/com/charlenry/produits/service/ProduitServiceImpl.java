@@ -39,13 +39,13 @@ public class ProduitServiceImpl implements ProduitService {
 	@Override
 	public ProduitDTO updateProduit(ProduitDTO p) {
 		//on récupère l'ID de l'image du produit dans la base de données
-		Long oldProdImageId = this.getProduit(p.getIdProduit()).getImage().getIdImage();
+		//Long oldProdImageId = this.getProduit(p.getIdProduit()).getImage().getIdImage();
 		// on récupère l'ID de l'image du produit dans l'objet DTO envoyé par le frontend
-		Long newProdImageId = p.getImage().getIdImage();
+		//Long newProdImageId = p.getImage().getIdImage();
 		// on met à jour le produit dans la base de données
 		ProduitDTO prodUpdated = convertEntityToDto(produitRepository.save(convertDtoToEntity(p)));
 		// si l'image a été modifiée alors supprimer l'ancienne image de la BDD
-		if (oldProdImageId != newProdImageId) imageRepository.deleteById(oldProdImageId);
+		//if (oldProdImageId != newProdImageId) imageRepository.deleteById(oldProdImageId);
 		return prodUpdated;
 	}
 

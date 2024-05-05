@@ -1,6 +1,7 @@
 package com.charlenry.produits.entities;
 
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -8,7 +9,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
-import jakarta.persistence.OneToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Produit {
@@ -23,11 +24,21 @@ public class Produit {
 	@ManyToOne // plusieurs produits peuvent appartenir à une seule catégorie
 	private Categorie categorie;
 	
-	@OneToOne
-	private Image image;
+	/*
+	 * mappedBy = "produit" signifie que cette entité est le côté non propriétaire de la relation, et que l'entité propriétaire est 
+	 * celle qui a l'attribut produit. En d'autres termes, une autre entité a un attribut produit qui est utilisé pour maintenir 
+	 * cette relation de un à plusieurs.
+	 * 
+	 * Par exemple, si vous avez une entité Image qui a un attribut produit, alors mappedBy = "produit" signifie que chaque 
+	 * instance de Produit peut être associée à plusieurs instances de Image, et chaque Image est associée à exactement un Produit. 
+	 * L'entité Image est le côté propriétaire de la relation, car elle contient l'attribut produit qui est utilisé pour maintenir
+	 *  la relation.
+	 */
+	@OneToMany(mappedBy = "produit")
+	private List<Image> images;
 	
 
-	
+
 	public Produit(String nomProduit, Double prixProduit, Date dateCreation) {
 		super();
 		this.nomProduit = nomProduit;
@@ -61,24 +72,23 @@ public class Produit {
 		this.dateCreation = dateCreation;
 	}
 	
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
-	}
-
 	public Produit() {
 		super();
 	}
+	
+	public List<Image> getImages() {
+		return images;
+	}
 
+	public void setImages(List<Image> images) {
+		this.images = images;
+	}
 
 
 	@Override
 	public String toString() {
 		return "Produit [idProduit=" + idProduit + ", nomProduit=" + nomProduit + ", prixProduit=" + prixProduit
-				+ ", dateCreation=" + dateCreation + "]";
+				+ ", dateCreation=" + dateCreation + ", categorie=" + "]";
 	}
 
 
@@ -86,12 +96,8 @@ public class Produit {
 		return categorie;
 	}
 
-
 	public void setCategorie(Categorie categorie) {
 		this.categorie = categorie;
 	}
-	
-	
-	
 
 }

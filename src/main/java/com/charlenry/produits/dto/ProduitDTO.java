@@ -1,6 +1,7 @@
 package com.charlenry.produits.dto;
 
 import java.util.Date;
+import java.util.List;
 
 import com.charlenry.produits.entities.Categorie;
 import com.charlenry.produits.entities.Image;
@@ -21,6 +22,6 @@ public class ProduitDTO {
 	private Date dateCreation;
 	private Categorie categorie;
 	private String nomCat;
-	private Image image;
+	private List<Image> images;
 }
 
