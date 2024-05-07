@@ -1,5 +1,8 @@
 package com.charlenry.produits.service;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -56,6 +59,14 @@ public class ProduitServiceImpl implements ProduitService {
 
 	@Override
 	public void deleteProduitById(Long id) {
+		ProduitDTO p = getProduit(id);
+		// Supprimer l'image avant de supprimer le produit
+		try {
+			Files.delete(Paths.get(System.getProperty("user.home") + "/development/produits/images/" + p.getImagePath()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 		produitRepository.deleteById(id);		
 	}
 

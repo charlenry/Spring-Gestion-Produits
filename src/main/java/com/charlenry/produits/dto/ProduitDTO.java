@@ -23,5 +23,6 @@ public class ProduitDTO {
 	private Categorie categorie;
 	private String nomCat;
 	private List<Image> images;
+	private String imagePath;
 }
 
