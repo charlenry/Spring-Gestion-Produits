@@ -73,12 +73,10 @@ public class ImageServiceImpl implements ImageService {
 				.image(file.getBytes()).produit(p).build());
 	}
 	
-	
 	@Override
 	public List<Image> getImagesParProd(Long prodId) {
 		Produit p = produitRepository.findById(prodId).get();
 		return p.getImages();
 	}
-  
   
 }
