@@ -36,10 +36,10 @@ public class ProduitRESTController {
 	
 	// Add a product
 	// Adresse : http://localhost:8080/produits/api/addProd
+	//@PreAuthorize("hasAuthority('ADMIN')")
 	@PostMapping(path = "/api/addProd", 
 	        consumes = MediaType.APPLICATION_JSON_VALUE, 
 	        produces = MediaType.APPLICATION_JSON_VALUE)
-	//@PreAuthorize("hasAuthority('ADMIN')")
 	public ProduitDTO createProduit(@RequestBody ProduitDTO produitDTO) {
 		return produitService.saveProduit(produitDTO);
 	}

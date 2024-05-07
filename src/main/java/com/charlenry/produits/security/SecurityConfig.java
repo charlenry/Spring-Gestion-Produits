@@ -51,17 +51,23 @@ public class SecurityConfig {
           }
         }))
         .authorizeHttpRequests(requests -> requests
-        	.anyRequest().permitAll());
-            /*.requestMatchers(HttpMethod.GET, "/api/all").hasAnyAuthority("ADMIN", "USER")
+        	//.anyRequest().permitAll());
+            .requestMatchers(HttpMethod.GET, "/api/all").hasAnyAuthority("ADMIN", "USER")
             .requestMatchers(HttpMethod.GET, "/api/getProdById/**").hasAnyAuthority("ADMIN", "USER")
-           // .requestMatchers(HttpMethod.POST, "/api/addProd").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/api/addProd").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.PUT, "/api/updateProd").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.DELETE, "/api/delProdById/**").hasAuthority("ADMIN")
             .requestMatchers(HttpMethod.GET, "/api/prodsByCat/**").hasAnyAuthority("ADMIN", "USER")
             .requestMatchers(HttpMethod.GET, "/api/prodsByName/**").hasAnyAuthority("ADMIN", "USER")
-            //.requestMatchers(HttpMethod.DELETE, "/api/cat/delCatById/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.DELETE, "/api/cat/delCatById/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.GET, "/api/image/getInfo/**").hasAnyAuthority("ADMIN", "USER")
+            .requestMatchers(HttpMethod.GET, "/api/image/loadFromFS/**").hasAnyAuthority("ADMIN", "USER")
+            .requestMatchers(HttpMethod.POST, "/api/image/upload").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/api/image/uploadImageProd/**").hasAuthority("ADMIN")
+            .requestMatchers(HttpMethod.POST, "/api/image/uploadFS/**").hasAuthority("ADMIN")   
+            .requestMatchers(HttpMethod.DELETE, "/api/image/delete/**").hasAuthority("ADMIN")
             .anyRequest().authenticated())
-        .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class); */
+        .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
 
     return http.build();
   }

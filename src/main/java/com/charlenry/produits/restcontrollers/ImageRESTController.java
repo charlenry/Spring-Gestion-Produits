@@ -27,28 +27,33 @@ public class ImageRESTController {
   ProduitService produitService;
 
 
+  // http://localhost:8080/produits/api/image/getInfo/{id}
   @GetMapping("/getInfo/{id}")
   public Image getImageDetails(@PathVariable("id") Long id) throws IOException {
     return imageService.getImageDetails(id);
   }
 
+  // http://localhost:8080/produits/api/image/load/{id}
   @GetMapping("/load/{id}")
   public ResponseEntity<byte[]> getImage(@PathVariable("id") Long id) throws IOException {
     return imageService.getImage(id);
   }
   
+  // http://localhost:8080/produits/api/image/getImagesProd/{idProd}
   @GetMapping("/getImagesProd/{idProd}")
   public List<Image> getImagesProd(@PathVariable("idProd") Long idProd)
       throws IOException {
     return imageService.getImagesParProd(idProd);
   }
   
+  // http://localhost:8080/produits/api/image/upload
   @PostMapping("/upload")
   public Image uploadImage(@RequestParam("image") MultipartFile file) throws IOException {
     return imageService.uploadImage(file);
   }
-
   
+
+  // http://localhost:8080/produits/api/image/uploadImageProd/{idProd}
   @PostMapping("/uploadImageProd/{idProd}")
   public Image uploadMultiImages(@RequestParam("image") MultipartFile file,
       @PathVariable("idProd") Long idProd)
@@ -56,11 +61,13 @@ public class ImageRESTController {
     return imageService.uploadImageProd(file, idProd);
   }
   
+  // http://localhost:8080/produits/api/image/update
   @PutMapping("/update")
   public Image UpdateImage(@RequestParam("image") MultipartFile file) throws IOException {
     return imageService.uploadImage(file);
   }
 
+  // http://localhost:8080/produits/api/image/delete/{id}
   @DeleteMapping("/delete/{id}")
   public void deleteImage(@PathVariable("id") Long id) {
     imageService.deleteImage(id);
@@ -87,6 +94,7 @@ public class ImageRESTController {
    * Files.write(...): This method is used to write the data to the file. It takes as input the Path object that represents 
    * the file path and the byte array that contains the data to be written.
    */
+  // http://localhost:8080/produits/api/image/uploadFS/{id}
   @PostMapping("/uploadFS/{id}")
   public void uploadImageFS(@RequestParam("image") MultipartFile file, @PathVariable("id") Long id) throws IOException {
     ProduitDTO p = produitService.getProduit(id);
@@ -114,6 +122,7 @@ public class ImageRESTController {
    * Files.readAllBytes(...): This method reads all bytes from the file at the specified path and returns the data 
    * as a byte array. It takes as input the Path object that represents the file path.
    */
+  // http://localhost:8080/produits/api/image/loadFromFS/{id}
   @GetMapping(value = "/loadFromFS/{id}", produces = org.springframework.http.MediaType.IMAGE_JPEG_VALUE)
   public byte[] getImageFS(@PathVariable("id") Long id) throws IOException {
     ProduitDTO p = produitService.getProduit(id);    
