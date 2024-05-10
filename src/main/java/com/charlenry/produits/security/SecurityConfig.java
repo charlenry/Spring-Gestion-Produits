@@ -2,15 +2,16 @@ package com.charlenry.produits.security;
 
 import java.util.Collections;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+// import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 
@@ -23,6 +24,9 @@ import jakarta.servlet.http.HttpServletRequest;
 @EnableWebSecurity
 @EnableMethodSecurity(prePostEnabled = true)  // Permet d'ajouter des filtres directement dans les restControllers ou au niveau des méthodes de service.
 public class SecurityConfig {
+
+  @Autowired
+  KeycloakRoleConverter keycloakRoleConverter;
 
     /** 
 	 * Cette méthode est utilisée pour configurer la chaîne de filtres de sécurité de Spring Security.
@@ -67,7 +71,8 @@ public class SecurityConfig {
             .requestMatchers(HttpMethod.POST, "/api/image/uploadFS/**").hasAuthority("ADMIN")   
             .requestMatchers(HttpMethod.DELETE, "/api/image/delete/**").hasAuthority("ADMIN")
             .anyRequest().authenticated())
-        .addFilterBefore(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class);
+            //.oauth2ResourceServer(rs -> rs.jwt(Customizer.withDefaults()));
+            .oauth2ResourceServer(rs->rs.jwt(jwt -> jwt.jwtAuthenticationConverter(keycloakRoleConverter)));
 
     return http.build();
   }
